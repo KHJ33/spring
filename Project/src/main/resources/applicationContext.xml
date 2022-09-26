@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	
+	<context:annotation-config />
+	
+	<bean id="user_data" class="com.example.Project.User_infor">
+		<property name="user" ref="make_file1"></property>
+	</bean>
+	
+	<bean id="manager" class="com.example.Project.Manager">
+		<constructor-arg index="0" ref="make_file2"></constructor-arg>
+		<constructor-arg index="1" ref="add2"></constructor-arg>
+	</bean>
+	
+	<bean id="make_file1" class="com.example.Project.Make_file" scope="prototype">
+		<constructor-arg index = "0" value = "user_info"></constructor-arg>
+		<qualifier value="user"/>
+	</bean>
+	
+	<bean id="make_file2" class="com.example.Project.Make_file" scope="prototype">
+		<constructor-arg index = "0" value = "manager_info"></constructor-arg>
+		<qualifier value="manager"/>
+	</bean>
+	
+	<bean id="make_file3" class="com.example.Project.Make_file" scope="prototype">
+		<constructor-arg index = "0" value = "books"></constructor-arg>
+		<qualifier value="books"/>
+	</bean>
+	
+	<bean id="books" class="com.example.Project.Books">
+		<property name="file" ref="make_file3"/>
+	</bean>
+	
+	<bean id="add1" class="com.example.Project.Add">
+		<constructor-arg index = "0" value = "user_info"></constructor-arg>
+	</bean>
+	
+	<bean id="add2" class="com.example.Project.Add">
+		<constructor-arg index = "0" value = "manager_info"></constructor-arg>
+	</bean>
+	
+</beans>
+
