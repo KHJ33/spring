@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TodoList">
+
+    <select id="findById" parameterType="String" resultType="todolist">
+        select * from user_todolist where id=#{id}
+    </select>
+
+    <delete id="delete" parameterType="Long">
+        delete from user_todolist where num=#{num}
+    </delete>
+
+    <update id="update" parameterType="todolist">
+        update user_todolist set todo=#{Todo} where num=#{Num}
+    </update>
+
+    <insert id="insert" parameterType="todolist">
+        insert into user_todolist(Id, Todo, Done)
+        values (#{Id}, #{Todo}, #{Done})
+    </insert>
+
+    <select id="findByNum" parameterType="Long" resultType="todolist">
+        select * from user_todolist where num=#{Num}
+    </select>
+
+    <update id="changebox" parameterType="todolist">
+        update user_todolist set done=#{Done} where num=#{Num}
+    </update>
+
+</mapper>
