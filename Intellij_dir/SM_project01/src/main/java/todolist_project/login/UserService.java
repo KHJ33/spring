@@ -15,13 +15,15 @@ public class UserService {
     }
 
     // ################# 로그인 서비스 ################# //
-    public boolean login(UserDTO userDTO) {
+    public UserDTO login(UserDTO userDTO) {
         UserDTO loginInfo = userRepository.login(userDTO);
 
+//        System.out.println("서비스내 정보 = " + loginInfo.toString());
+
         if (loginInfo != null) {
-            return true;
+            return loginInfo;
         } else {
-            return false;
+            return null;
         }
     }
 

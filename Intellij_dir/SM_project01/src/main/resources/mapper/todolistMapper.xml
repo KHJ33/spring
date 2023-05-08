@@ -16,7 +16,7 @@
         update user_todolist set todo=#{Todo} where num=#{Num}
     </update>
 
-    <insert id="insert" parameterType="todolist">
+    <insert id="insert" parameterType="todolist">7
         insert into user_todolist(Id, Todo, Done)
         values (#{Id}, #{Todo}, #{Done})
     </insert>

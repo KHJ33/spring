@@ -21,6 +21,7 @@ public class MainController {
         String id = (String) session.getAttribute("loginId");
 
         System.out.println("들어온 아이디 = " + id);
+        System.out.println("들어온 이름 = " + (String) session.getAttribute("loginIdName"));
 
         List<TodoListDTO> todoListDTO = todoListService.todolist(id);
         model.addAttribute("todolist", todoListDTO);

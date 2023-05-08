@@ -7,13 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/resources/css/test_page.css" />" rel="stylesheet">
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
 
-    <h2>${sessionScope.loginId} 님 환영합니다.</h2>
+    <h2>${sessionScope.loginIdName} 님 환영합니다.</h2>
 
     <h3>내가 해야 할 일 목록</h3>
 
@@ -34,7 +35,17 @@
             <tr>
                 <td>${todo.num}</td>
                 <td>${todo.id}</td>
-                <td>${todo.todo}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${todo.done eq 0}">
+                            ${todo.todo}
+                        </c:when>
+                        <c:otherwise>
+                            <del>${todo.todo}</del>
+                        </c:otherwise>
+                    </c:choose>
+
+                </td>
                 <td>
                     <c:choose>
                         <c:when test="${todo.done eq 0}">
@@ -62,6 +73,46 @@
     </form>
 
 
+
+    <div class="wrapper">
+
+        <div class="task-input">
+            <!-- <img src="/resources/img/menu_bar.png" alt="icon"> -->
+            <input type="text" placeholder="Add a new todo list">
+        </div>
+
+        <div class="controls">
+            <div class="filters">
+                <span class="active" id="all">All</span>
+                <span id="pending">Pending</span>
+                <span id="completed">Completed</span>
+            </div>
+
+            <button class="clear-btn">Clear All</button>
+        </div>
+
+        <ul class="task-box">
+            <c:forEach items="${todolist}" var="user_todo">
+                <li class="task">
+                    <label>
+                        <input onclick="updateStatus(this)" type="checkbox">
+                        <p>${user_todo.todo}</p>
+                    </label>
+            </c:forEach>
+
+
+
+
+
+
+        </ul>
+
+
+
+
+    </div>
+
+
 </body>
 <script>
     const deleteTodo = (num) => {
@@ -77,6 +128,6 @@
         location.href = "/main/check?num="+num;
     }
 </script>
-
+<!-- <script src="<c:url value="/resources/js/main_page.js" />"></script> -->
 
 </html>

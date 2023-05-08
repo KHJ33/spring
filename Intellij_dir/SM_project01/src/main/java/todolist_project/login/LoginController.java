@@ -28,7 +28,7 @@ public class LoginController {
     public String save(@ModelAttribute UserDTO userDTO ) {
         int saveResult = userService.save(userDTO);
         if (saveResult > 0) {
-            return "login";
+            return "index";
         } else {
             return "save";
         }
@@ -38,15 +38,17 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginForm() {
-        return "login";
+        return "index";
     }
 
     @PostMapping("/login")
     public String login(@ModelAttribute UserDTO userDTO, HttpSession session) {
-        boolean loginResult = userService.login(userDTO);
+        UserDTO loginResult = userService.login(userDTO);
 
-        if (loginResult) {
-            session.setAttribute("loginId", userDTO.getId());
+        if (loginResult != null) {
+//            System.out.println("/login controller 내 정보 = " + userDTO.toString());
+            session.setAttribute("loginId", loginResult.getId());
+            session.setAttribute("loginIdName", loginResult.getName());
             // MainController 이동
             return "redirect:/main/";
         } else {

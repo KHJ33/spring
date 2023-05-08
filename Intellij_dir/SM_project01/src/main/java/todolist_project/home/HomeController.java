@@ -11,4 +11,10 @@ public class HomeController {
         // index.jsp 파일로 연결
         return "index";
     }
+
+    @GetMapping("/test")
+    public String test() {
+        // index.jsp 파일로 연결
+        return "test";
+    }
 }

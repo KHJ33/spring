@@ -4,8 +4,8 @@
 
 <mapper namespace="User">
     <insert id="save" parameterType="user">
-        insert into user_table(Id, Password)
-        values (#{Id}, #{Password})
+        insert into user_table(Id, Password, Name)
+        values (#{Id}, #{Password}, #{Name})
     </insert>
 
     <select id="login" parameterType="user" resultType="user">
