@@ -60,9 +60,16 @@ function showTodo(filter) {
 }
 showTodo("all");
 function showMenu(selectedTask) {
+    console.log("클릭 드리어옴 selectedTask = " + selectedTask);
     let menuDiv = selectedTask.parentElement.lastElementChild;
+    // console.log(menuDiv);
     menuDiv.classList.add("show");
+    // console.log(menuDiv.classList);
+    // console.log(menuDiv.classList.add("show"));
+
     document.addEventListener("click", e => {
+        console.log("e.target = " + e.target);
+
         if(e.target.tagName != "I" || e.target != selectedTask) {
             menuDiv.classList.remove("show");
         }
@@ -103,8 +110,8 @@ taskInput.addEventListener("keyup", e => {
     if(e.key == "Enter" && userTask) {
         if(!isEditTask) {
             todos = !todos ? [] : todos;
-            let taskInfo = {name: userTask, status: "pending"};
-            todos.push(taskInfo);
+            // let taskInfo = {name: userTask, status: "pending"};
+            // todos.push(taskInfo);
         } else {
             isEditTask = false;
             todos[editId].name = userTask;

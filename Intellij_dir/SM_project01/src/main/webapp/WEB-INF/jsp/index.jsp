@@ -14,8 +14,6 @@
     <title>Title</title>
 </head>
 <body>
-    <a href="/user/save">회원가입</a>
-    <!-- <a href="/user/login">로그인</a> -->
 
     <!-- 회원가입 부분 -->
     <div class="container" id="container">
@@ -72,6 +70,20 @@
     </div>
 
 </body>
-<script src="<c:url value="/resources/js/index_page.js" />"></script>
+<!-- <script src="<c:url value="/resources/js/index_page.js" />"> -->
+<script>
+    const signUpButton = document.getElementById('signUp');
+    const signInButton = document.getElementById('signIn');
+    const container = document.getElementById('container');
+
+    signUpButton.addEventListener('click', () => {
+        container.classList.add("right-panel-active");
+    });
+
+    signInButton.addEventListener('click', () => {
+        container.classList.remove("right-panel-active");
+    });
+
+</script>
 </html>
 

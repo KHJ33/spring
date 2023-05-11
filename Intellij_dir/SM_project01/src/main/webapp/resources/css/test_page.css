@@ -33,6 +33,7 @@ body{
     position: absolute;
     transform: translate(17px, -50%);
 }
+
 .task-input input{
     height: 100%;
     width: 100%;

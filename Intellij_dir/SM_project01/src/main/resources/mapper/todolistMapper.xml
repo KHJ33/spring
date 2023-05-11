@@ -8,6 +8,14 @@
         select * from user_todolist where id=#{id}
     </select>
 
+    <select id="findBy_Map" parameterType="Map" resultType="todolist">
+        select * from user_todolist where id=#{id} and done=#{filter}
+    </select>
+
+    <select id="findBy_period" parameterType="Map" resultType="todolist">
+        select * from user_todolist where id=#{id} and (completed_date between #{start_date} and #{end_date})
+    </select>
+
     <delete id="delete" parameterType="Long">
         delete from user_todolist where num=#{num}
     </delete>
@@ -16,7 +24,7 @@
         update user_todolist set todo=#{Todo} where num=#{Num}
     </update>
 
-    <insert id="insert" parameterType="todolist">7
+    <insert id="insert" parameterType="todolist">
         insert into user_todolist(Id, Todo, Done)
         values (#{Id}, #{Todo}, #{Done})
     </insert>
@@ -28,5 +36,26 @@
     <update id="changebox" parameterType="todolist">
         update user_todolist set done=#{Done} where num=#{Num}
     </update>
+
+    <delete id="select_clear" parameterType="java.util.List">
+        DELETE FROM user_todolist WHERE num in
+        <foreach collection="list" item="arr" open="(" close=")" separator=",">
+            #{arr}
+        </foreach>
+    </delete>
+
+    <update id="delete_date" parameterType="todolist">
+        update user_todolist set completed_date=NULL, done=0 where num=#{Num}
+    </update>
+
+    <update id="update_date" parameterType="todolist">
+        update user_todolist set completed_date=#{Completed_date}, done=1 where num=#{Num}
+    </update>
+
+<!--    <delete id="select_clear" parameterType="java.util.List">-->
+<!--        delete from user_todolist where id in (-->
+<!--            <foreach collection="list" item="num" separator=",">#{num}</foreach>-->
+<!--            )-->
+<!--    </delete>-->
 
 </mapper>

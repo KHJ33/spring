@@ -17,7 +17,6 @@
     </bean>
     -->
 
-
     <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
         <property name="driverClass" value="org.mariadb.jdbc.Driver"/>
         <property name="url" value="jdbc:mariadb://localhost:3306/todolist"/>
@@ -41,14 +40,20 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <!-- 파일 처리 부분 -->
-
+    <!-- 파일 처리 부분(파일업로드/다운로드) -->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 
         <property name="defaultEncoding" value="UTF-8" />
-        <property name="maxUploadSize" value="10000000" />
+        <!--  파일업로드 용량 (10MB)-->
+        <property name="maxUploadSize" value="10485760" />
+    </bean>
 
+    <!--  파일업로드 디렉토리 설정 -->
+    <bean id="uploadPath" class="java.lang.String">
+        <!--        <constructor-arg value="[프로젝트 내 폴더, 절대경로로 설정]"/>-->
+        <!-- 상대 경로 지정 방법을 모르겠음 ./ 했을때 smartTomcat 경로에 생성-->
+        <constructor-arg value="/resources/img/"></constructor-arg>
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>

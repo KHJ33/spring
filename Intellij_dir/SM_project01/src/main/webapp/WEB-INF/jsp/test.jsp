@@ -32,59 +32,7 @@
 
       <ul class="task-box"></ul>
 
-<!--
-      <ul class="task-box">
-
-          <li class="task">
-              <label for="${id}">
-                  <input onclick="updateStatus(this)" type="checkbox" id="${id}" ${completed}>
-                  <p class="${completed}">${todo.name}</p>
-              </label>
-              <div class="settings">
-                  <i onclick="showMenu(this)" class="uil uil-ellipsis-h"></i>
-                  <ul class="task-menu">
-                      <li onclick='editTask(${id}, "${todo.name}")'><i class="uil uil-pen"></i>Edit</li>
-                      <li onclick='deleteTask(${id}, "${filter}")'><i class="uil uil-trash"></i>Delete</li>
-                  </ul>
-              </div>
-          </li>
-      </ul>
-
-
-      <c:forEach items="${todolist}" var="todo">
-          <tr>
-              <td>${todo.num}</td>
-              <td>${todo.id}</td>
-              <td>
-                  <c:choose>
-                      <c:when test="${todo.done eq 0}">
-                          ${todo.todo}
-                      </c:when>
-                      <c:otherwise>
-                          <del>${todo.todo}</del>
-                      </c:otherwise>
-                  </c:choose>
-
-              </td>
-              <td>
-                  <c:choose>
-                      <c:when test="${todo.done eq 0}">
-                          <input type="checkbox" onclick="is_checked('${todo.num}')" id="check" value="info" >
-                      </c:when>
-                      <c:otherwise>
-                          <input type="checkbox" onclick="is_checked('${todo.num}')" id="check" value="info" checked>
-                      </c:otherwise>
-                  </c:choose>
-              </td>
-              <td><button onclick="updateTodo('${todo.num}')">수정</button></td>
-              <td><button onclick="deleteTodo('${todo.num}')">삭제</button></td>
-          </tr>
-      </c:forEach>
-
-
--->
-
   </div>
 </body>
-<script src="<c:url value="/resources/js/test_page.js" />"></script>
+<script src="<c:url value="/resources/js/t_p.js" />"></script>
 </html>
