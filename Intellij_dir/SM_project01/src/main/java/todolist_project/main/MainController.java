@@ -2,11 +2,15 @@ package todolist_project.main;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.sql.Date;
 import java.util.List;
 
@@ -110,11 +114,42 @@ public class MainController {
 
     // ################# 추가 버튼 클릭 controller _ version 1 ################# //
     @PostMapping("/insert")
-    public String insert(@ModelAttribute TodoListDTO todoListDTO) {
+    public String insert(@ModelAttribute TodoListDTO todoListDTO,
+                         @ModelAttribute UploadDTO uploadDTO,
+                         MultipartFile file, Model model, HttpServletRequest request) {
 
         System.out.println("추가 버튼 클릭시 넘어오는 값 = " + todoListDTO);
+        System.out.println("UploadDTO = " + uploadDTO.toString());
+
+        HttpSession session = request.getSession();
+        String uploadPath = session.getServletContext().getRealPath("/") + "img_upload";
+
+        System.out.println("uploadDTO = " + uploadDTO.getFile());
+
+//        if (!uploadDTO.getFile().isEmpty()) {
+//            String fileName = file.getOriginalFilename();
+//            File target = new File(uploadPath, fileName);
+//
+//            System.out.println("fileName = " + fileName);
+//            System.out.println("target = " + target);
+//        }
+//
+////        System.out.println("root = " + root);
+//
+//        System.out.println("입력으로 들어온 fileName = " + fileName);
+//        System.out.println("UploadDTO = " + uploadDTO.toString());
+//
+//
+//        System.out.println("file 정보 찍어보기 = " + file.getContentType());
+
+
 
         todoListService.insert(todoListDTO);
+
+//        if (file.getSize() == 0) {
+//            return "redirect:/main/";
+//        }
+
 
         return "redirect:/main/";
     }

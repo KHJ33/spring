@@ -83,14 +83,19 @@
             <input type="text" placeholder="Add a new todo list">
 
         </div>
-        <c:choose>
-            <c:when test="${check_filter == 'completed'}">
-                <input id="start_date" type="date" value="${start_date}">
-                <input id="end_date" type="date" value="${end_date}">
-                <input id="date_submit" type="submit" onclick="date()" value="적용">
-            </c:when>
-        </c:choose>
 
+        <div>
+            <c:choose>
+                <c:when test="${check_filter == 'completed'}">
+                        <input id="start_date" type="date" value="${start_date}">
+                        <input id="end_date" type="date" value="${end_date}">
+                        <input id="date_submit" type="submit" onclick="date()" value="적용">
+                </c:when>
+                <c:otherwise>
+                        <input type="file" id="fileUpload" name="file" />
+                </c:otherwise>
+            </c:choose>
+        </div>
 
         <!-- 네이게이션 바 선택 부분 -->
         <div class="controls">
@@ -196,6 +201,8 @@
         taskBox = document.querySelector(".task-box"),
         clearAll = document.querySelector(".clear-btn");
 
+    const fileInput = document.getElementById("fileUpload");
+
     clearAll.classList.add("active");
     clearAll.addEventListener("click", () => {
         // isEditTask = false;
@@ -288,17 +295,26 @@
         // console.log(userTask);
 
 
+
         if(e.key == "Enter" && userTask) {
+            console.log("ㅇ")
+
+            const selectedFile = fileInput.files[0];
+            console.log(selectedFile);
+
             <!-- 편집으로 들어온 경우가 아닐떄 -->
             if(!isEditTask) {
                 var form = document.createElement('form');
                 form.setAttribute('method','post');
                 form.setAttribute('action', '/main/insert')
+                form.setAttribute('enctype', 'multipart/form-data');
 
                 var hidden_id = document.createElement('input');
                 hidden_id.setAttribute('type', 'hidden');
                 hidden_id.setAttribute('name', 'Id');
-                hidden_id.setAttribute('value', '${sessionScope.loginId}')
+                hidden_id.setAttribute('value', '${sessionScope.loginId}');
+
+                var upload_img = document.getElementById("fileUpload");
 
                 var hidden_todo = document.createElement('input');
                 hidden_todo.setAttribute('type', 'hidden');
@@ -310,6 +326,7 @@
                 hidden_done.setAttribute('name', 'Done');
                 hidden_done.setAttribute('value', 0);
 
+                form.appendChild(upload_img);
                 form.appendChild(hidden_id);
                 form.appendChild(hidden_todo);
                 form.appendChild(hidden_done);

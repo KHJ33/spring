@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<c:url value="/resources/css/tt.css" />" rel="stylesheet">
 <html>
 <head>
     <title>Title</title>
@@ -22,10 +24,18 @@
     </div>
 
 
+    <div class="filebox">
+        <label for="ex_file">업로드</label>
+        <input type="file" id="ex_file">
+    </div>
+
+
+
     <div style="margin:10% 10% 10% 10%;">
         <!--  파일첨부 -->
         <form  action="/fileSave" method="post"  enctype="multipart/form-data">
-            <input type="file" name="file"/>
+            <input type="text" name = "test_text" value="실험">
+            <input type="file" id="input-file" name="file" />
             <input class="btn btn-primary btn-sm"  type="submit" value="업로드"/>
         </form>
     </div>
