@@ -2,7 +2,10 @@ package todolist_project.main;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -113,5 +116,30 @@ public class TodoListService {
     }
 
 
+    public void insert_img(TodoListDTO todoListDTO, UploadDTO uploadDTO, MultipartFile file) {
 
+        todoListRepository.insert_img(todoListDTO);
+        uploadDTO.setNum(todoListDTO.getNum());
+
+        todoListRepository.insert_img(uploadDTO);
+        System.out.println("uploadDTO storedFileName = " + uploadDTO.getStoredFileName());
+
+
+        File target = new File(uploadDTO.getUploadPath(), uploadDTO.getStoredFileName() + "." + uploadDTO.getContentType().split("/")[1]);
+        System.out.println("target = " + target);
+
+        todoListDTO.setImg_file(uploadDTO.getStoredFileName() + "." + uploadDTO.getContentType().split("/")[1]);
+
+        if ( ! new File(uploadDTO.getUploadPath()).exists()) {
+            System.out.println("폴더가 없습니다. 새롭게 생성합니다.");
+            new File(uploadDTO.getUploadPath()).mkdirs();
+        }
+
+        //파일 복사
+        try {
+            FileCopyUtils.copy(file.getBytes(), target);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -8,6 +8,7 @@
     <typeAliases>
         <typeAlias type="todolist_project.login.UserDTO" alias="user"></typeAlias>
         <typeAlias type="todolist_project.main.TodoListDTO" alias="todolist"></typeAlias>
+        <typeAlias type="todolist_project.main.UploadDTO" alias="upload"></typeAlias>
     </typeAliases>
 
 </configuration>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ImgUpload">
+
+    <insert id="img_upload" parameterType="upload" useGeneratedKeys="true" keyProperty="storedFileName">
+        insert into img_upload(originalFileName, uploadPath, contentType, size, Num)
+        values (#{originalFileName}, #{uploadPath}, #{contentType}, #{size}, #{Num})
+    </insert>
+
+<!--    keyProperty 에 있는 값 반환-->
+    <insert id="img_todolist" parameterType="todolist" useGeneratedKeys="true" keyProperty="Num">
+        insert into user_todolist(Id, Todo, Done, Existsimg)
+        values (#{Id}, #{Todo}, #{Done}, #{ExistsImg})
+    </insert>
+
+
+</mapper>

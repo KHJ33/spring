@@ -69,4 +69,12 @@ public class TodoListRepository {
     public Object todolist_period(Map<String, String> map) {
         return sql.selectList("TodoList.findBy_period", map);
     }
+
+    public void insert_img(UploadDTO uploadDTO) {
+        sql.insert("ImgUpload.img_upload", uploadDTO);
+    }
+
+    public void insert_img(TodoListDTO todoListDTO) {
+        sql.insert("ImgUpload.img_todolist", todoListDTO);
+    }
 }

@@ -201,7 +201,6 @@
         taskBox = document.querySelector(".task-box"),
         clearAll = document.querySelector(".clear-btn");
 
-    const fileInput = document.getElementById("fileUpload");
 
     clearAll.classList.add("active");
     clearAll.addEventListener("click", () => {
@@ -297,11 +296,6 @@
 
 
         if(e.key == "Enter" && userTask) {
-            console.log("ㅇ")
-
-            const selectedFile = fileInput.files[0];
-            console.log(selectedFile);
-
             <!-- 편집으로 들어온 경우가 아닐떄 -->
             if(!isEditTask) {
                 var form = document.createElement('form');

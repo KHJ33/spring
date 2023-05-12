@@ -19,11 +19,11 @@
   </div>
 
   <h3>파일이 업로드 되었습니다.</h3>
-  <span>${file.originalFilename}</span>
-  <span>${file.contentType}</span>
+<%--  <span>${file.originalFilename}</span>--%>
+<%--  <span>${file.contentType}</span>--%>
 </div>
 
-<img src="/img_upload/테스트용%20이미지.png" alt="icon">
+<img src="/img_upload/${todolist.img_file}" alt="icon">
 
 </body>
 </html>

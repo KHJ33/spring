@@ -15,4 +15,5 @@ public class UploadDTO {
     private String uploadPath; // 파일 저장 경로
     private String contentType; // 타입 명시
     private int size; // size 명시
+    private Long Num;
 }

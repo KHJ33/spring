@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -121,34 +122,37 @@ public class MainController {
         System.out.println("추가 버튼 클릭시 넘어오는 값 = " + todoListDTO);
         System.out.println("UploadDTO = " + uploadDTO.toString());
 
-        HttpSession session = request.getSession();
-        String uploadPath = session.getServletContext().getRealPath("/") + "img_upload";
+
 
         System.out.println("uploadDTO = " + uploadDTO.getFile());
 
-//        if (!uploadDTO.getFile().isEmpty()) {
-//            String fileName = file.getOriginalFilename();
-//            File target = new File(uploadPath, fileName);
-//
-//            System.out.println("fileName = " + fileName);
-//            System.out.println("target = " + target);
-//        }
-//
-////        System.out.println("root = " + root);
-//
-//        System.out.println("입력으로 들어온 fileName = " + fileName);
-//        System.out.println("UploadDTO = " + uploadDTO.toString());
-//
-//
-//        System.out.println("file 정보 찍어보기 = " + file.getContentType());
+        System.out.println("file isEmpty() = " + file.isEmpty());
+
+//        파일 업로드가 되어 있지 않다면
+        if (file.isEmpty() == true) {
+            todoListService.insert(todoListDTO);
+        } else {
+            System.out.println("구현중입니다.");
+            HttpSession session = request.getSession();
+            String uploadPath = session.getServletContext().getRealPath("/") + "img_upload";
+
+            todoListDTO.setExistsImg(1);
+
+            uploadDTO.setOriginalFileName(file.getOriginalFilename());
+            uploadDTO.setContentType(file.getContentType());
+            uploadDTO.setSize((int)file.getSize());
+            uploadDTO.setUploadPath(uploadPath);
+
+            todoListService.insert_img(todoListDTO, uploadDTO, file);
+
+            System.out.println("Main / uploadDTO storedFileName = " + uploadDTO.getStoredFileName());
 
 
+            System.out.println("최종 todolist = " + todoListDTO.toString());
+            model.addAttribute("todolist",todoListDTO);
+            return "tt1";
 
-        todoListService.insert(todoListDTO);
-
-//        if (file.getSize() == 0) {
-//            return "redirect:/main/";
-//        }
+        }
 
 
         return "redirect:/main/";

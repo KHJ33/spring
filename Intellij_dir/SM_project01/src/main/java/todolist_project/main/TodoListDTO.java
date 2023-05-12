@@ -15,4 +15,6 @@ public class TodoListDTO {
     private String Todo;
     private Date Completed_date;
     private int Done;
+    private int ExistsImg;
+    private String img_file;
 }
