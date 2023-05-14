@@ -128,7 +128,9 @@ public class TodoListService {
         File target = new File(uploadDTO.getUploadPath(), uploadDTO.getStoredFileName() + "." + uploadDTO.getContentType().split("/")[1]);
         System.out.println("target = " + target);
 
-        todoListDTO.setImg_file(uploadDTO.getStoredFileName() + "." + uploadDTO.getContentType().split("/")[1]);
+        todoListDTO.setImg_fileName(uploadDTO.getStoredFileName() + "." + uploadDTO.getContentType().split("/")[1]);
+
+        todoListRepository.update_img_fileName(todoListDTO);
 
         if ( ! new File(uploadDTO.getUploadPath()).exists()) {
             System.out.println("폴더가 없습니다. 새롭게 생성합니다.");

@@ -15,5 +15,8 @@
         values (#{Id}, #{Todo}, #{Done}, #{ExistsImg})
     </insert>
 
+    <update id="img_fileName" parameterType="todolist">
+        update user_todolist set Img_fileName=#{img_fileName} where num=#{Num}
+    </update>
 
 </mapper>

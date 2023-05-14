@@ -160,6 +160,20 @@
 
                                 </label>
 
+                                <c:choose>
+                                    <c:when test="${user_todo.existsImg eq 1}">
+                                    <div class="img">
+                                        <i onclick="showImg(this, '${user_todo.img_fileName}', '${user_todo.num}')" class="uil uil-ellipsis-h"><b id = "I${user_todo.num}">Image</b></i>
+
+                                        <ul class="show-img">
+                                            <li><i class="uil uil-pen"></i>img</li>
+                                        </ul>
+
+                                    </div>
+                                    </c:when>
+                                </c:choose>
+
+
 <%--                                ... 메뉴 클릭 부분--%>
                                 <div class="settings">
                                     <i onclick="showMenu(this, '${user_todo.num}')" class="uil uil-ellipsis-h"><b id = "b${user_todo.num}">...</b></i>
@@ -180,6 +194,7 @@
 
     </div>
 
+    <img src="" id="upload-img">
 
 
 </body>
@@ -285,15 +300,12 @@
 
     let editNum,
         isEditTask = false;
-        // start_date  = document.querySelector("#start_date");
 
     <!-- 입력 부분 js -->
     const taskInput = document.querySelector(".task-input input");
     taskInput.addEventListener("keyup", e => {
         let userTask = taskInput.value.trim();
         // console.log(userTask);
-
-
 
         if(e.key == "Enter" && userTask) {
             <!-- 편집으로 들어온 경우가 아닐떄 -->
@@ -334,28 +346,28 @@
 
             }
 
-
-            <%--console.log('${sessionScope.loginId}');--%>
-            <%--console.log(userTask);--%>
-
-            // if(!isEditTask) {
-            //     todos = !todos ? [] : todos;
-            //     let taskInfo = {name: userTask, status: "pending"};
-            //     todos.push(taskInfo);
-            // } else {
-            //     isEditTask = false;
-            //     todos[editId].name = userTask;
-            // }
             taskInput.value = "";
-            // localStorage.setItem("todolist", JSON.stringify(todos));
-            // showTodo(document.querySelector("span.active").id);
-            // location.href = "/main/userTask="+userTask;
-            <%--location.href = "c/cc?loginId="+'${sessionScope.loginId}'+"todo="+userTask;--%>
-
-
 
         }
     });
+
+    let check_imgUpload = false;
+
+    function showImg(selectedImg, img_fileName, num) {
+
+        console.log("img 버든 클릭 됨");
+
+        if(!check_imgUpload) {
+            document.getElementById("upload-img").src = "/img_upload/"+img_fileName;
+            document.getElementById("upload-img").style.width = "300px";
+            document.getElementById("upload-img").style.height = "300px";
+            check_imgUpload = true;
+        } else {
+            check_imgUpload = false;
+            document.getElementById("upload-img").src = "";
+        }
+
+    }
 
     // ... 클릭 function => 클릭시 edit 와 delete 보임
     function showMenu(selectedTask, num) {
@@ -367,66 +379,10 @@
             // console.log("e.target = " + e.target);
             if(e.target.id != "b"+num ) {
                 menuDiv.classList.remove("show");
-                // console.log("여기 실행 e = " + menuDiv.className);
-                // console.log("menuDiv = " + menuDiv.id);
-                // console.log(e.target.id);
-                // console.log(selectedTask.);
-                // console.log(e.)
             }
 
         });
 
-
-        // let class_name = document.getElementById("showMenu"+num);
-        // // console.log("class_name = " + class_name);
-        //
-        // // class_name.className += " show";
-        // // class_name.classList.add("show");
-        //
-        // document.addEventListener("click", e => {
-        //     console.log("e.target = " + e.target);
-        //
-        //     if (e.target == s) {
-        //         console.log("같은거 클릭중입니다.");
-        //     } else {
-        //         console.log("다른거 클릭중입니다.");
-        //     }
-        //
-        //     // if(e.target.tagName != "I" || e.target != selectedTask) {
-        //     //     menuDiv.classList.remove("show");
-        //     // }
-        // });
-
-
-        // // console.log(class_name.target);
-        // document.addEventListener("click", e => {
-        //
-        //     console.log(e.target);
-        //     console.log(s);
-        //     console.log(s.);
-        //
-        //     // if(e.target.tagName != "I" || e.target != s) {
-        //     //     console.log(e.target.tagName);
-        //     //     console.log(e.target);
-        //     //     console.log("여기 실행")
-        //     //     class_name.classList.remove("show");
-        //     // }
-        // });
-
-
-        // console.log("클릭 드리어옴 selectedTask = " + selectedTask);
-        // let menuDiv = selectedTask.parentElement.lastElementChild;
-        // menuDiv.classList.add("show");
-        //
-        // selectedTask.parentElement.lastElementChild.classList.add("show");
-        //
-        // console.log(menuDiv);
-        // console.log(menuDiv.classList);
-        // document.addEventListener("click", e => {
-        //     if(e.target.tagName != "I" || e.target != selectedTask) {
-        //         menuDiv.classList.remove("show");
-        //     }
-        // });
     }
 
     // 삭제 function

@@ -77,4 +77,9 @@ public class TodoListRepository {
     public void insert_img(TodoListDTO todoListDTO) {
         sql.insert("ImgUpload.img_todolist", todoListDTO);
     }
+
+
+    public void update_img_fileName(TodoListDTO todoListDTO) {
+        sql.update("ImgUpload.img_fileName", todoListDTO);
+    }
 }

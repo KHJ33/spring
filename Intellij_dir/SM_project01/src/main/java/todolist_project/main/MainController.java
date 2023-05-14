@@ -122,8 +122,6 @@ public class MainController {
         System.out.println("추가 버튼 클릭시 넘어오는 값 = " + todoListDTO);
         System.out.println("UploadDTO = " + uploadDTO.toString());
 
-
-
         System.out.println("uploadDTO = " + uploadDTO.getFile());
 
         System.out.println("file isEmpty() = " + file.isEmpty());
@@ -149,8 +147,9 @@ public class MainController {
 
 
             System.out.println("최종 todolist = " + todoListDTO.toString());
-            model.addAttribute("todolist",todoListDTO);
-            return "tt1";
+//            model.addAttribute("todolist",todoListDTO);
+//            model.addAttribute("upload_img", uploadDTO);
+//            return "re";
 
         }
 

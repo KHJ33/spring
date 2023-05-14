@@ -22,8 +22,7 @@
 <%--  <span>${file.originalFilename}</span>--%>
 <%--  <span>${file.contentType}</span>--%>
 </div>
-
-<img src="/img_upload/${todolist.img_file}" alt="icon">
+<img src="/img_upload/${upload_img.storedFileName}.${upload_img.contentType.split("/")[1]}" alt="icon">
 
 </body>
 </html>
