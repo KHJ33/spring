@@ -24,8 +24,6 @@ public class TodoListRepository {
 
     public List<TodoListDTO> todolist(Map<String, String> map) {
 
-        System.out.println("map 확인 id = "+ map.get("id") + " filter = " + map.get("filter"));
-
         return sql.selectList("TodoList.findBy_Map", map);
     }
 
@@ -33,12 +31,12 @@ public class TodoListRepository {
     public void delete(Long num) {
 
         int result = sql.delete("TodoList.delete", num);
-        System.out.println("하나 삭제 결과 = " + result);
+
     }
 
     // ################# 업데이트 Mapper ################# //
-    public void update(TodoListDTO todoListDTO) {
-        sql.update("TodoList.update", todoListDTO);
+    public void update(Map<String, String> map) {
+        sql.update("TodoList.update", map);
     }
 
     // ################# 추가 Mapper ################# //
@@ -55,30 +53,37 @@ public class TodoListRepository {
     // ################# clear (다중삭제) Mapper ################# //
     public void select_clear(List<Integer> num_Arr) {
         int result = sql.delete("TodoList.select_clear", num_Arr);
-        System.out.println("result = " + result);
     }
-
+    // ###################################################### //
+    // ################# 체크박스 수정 Mapper ################# //
+    // ### 체크박스 선택시 완료된 금일 날짜를 입력
+    // ### 체크박스 선택 해지시 완료 날짜 삭제
+    // ###################################################### //
     public void delete_date(TodoListDTO todoListDTO) {
         sql.update("TodoList.delete_date", todoListDTO);
     }
-
     public void update_date(TodoListDTO todoListDTO) {
         sql.update("TodoList.update_date", todoListDTO);
     }
 
+    // ########################################################################### //
+    // ################# 시작 날짜와 종료날짜로 todolist 호출 Mapper ################# //
+    // ### 반환을 객체로 받는다
+    // ########################################################################### //
     public Object todolist_period(Map<String, String> map) {
         return sql.selectList("TodoList.findBy_period", map);
     }
 
-    public void insert_img(UploadDTO uploadDTO) {
-        sql.insert("ImgUpload.img_upload", uploadDTO);
-    }
-
+    // ###################################################### //
+    // ################# 이미지 업로드 Mapper ################# //
+    // ### imgUpload db 테이블 수정
+    // ### todolist db 테이블 수정
+    // ### todolist file name 수정 - 이미지가 한개라면 primary key 로 설정했어도 좋았을거 같음
+    // ###################################################### //
+    public void insert_img(UploadDTO uploadDTO) { sql.insert("ImgUpload.img_upload", uploadDTO); }
     public void insert_img(TodoListDTO todoListDTO) {
         sql.insert("ImgUpload.img_todolist", todoListDTO);
     }
-
-
     public void update_img_fileName(TodoListDTO todoListDTO) {
         sql.update("ImgUpload.img_fileName", todoListDTO);
     }

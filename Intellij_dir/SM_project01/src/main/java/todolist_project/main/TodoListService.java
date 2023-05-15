@@ -23,9 +23,12 @@ public class TodoListService {
         return todoListRepository.todolist(id);
     }
 
+    // ##################################################### //
+    // ############### 필터값에 따른 Service ################# //
+    // ### 필더 값에 따라서 map 변수를 다르게 설정
+    // ##################################################### //
     public List<TodoListDTO> todolist(String id, String check_filter) {
         String filter = "";
-        System.out.println("서비스 overloading check_filter = " + check_filter);
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", id);
 
@@ -42,35 +45,18 @@ public class TodoListService {
     // ################# 삭제 Service ################# //
     public void delete(Long num) { todoListRepository.delete(num); }
 
-    // ################# 업데이트(변경) Service ################# //
-    public void update(TodoListDTO todoListDTO) { todoListRepository.update(todoListDTO); }
-
     // ################# 추가 Service ################# //
     public void insert(TodoListDTO todoListDTO) { todoListRepository.insert(todoListDTO); }
 
-    // ################# CheckBox 변경 Service ################# //
-    public void changebox(Long num) {
-        TodoListDTO todoListDTO = todoListRepository.FindByNum(num);
-
-        System.out.println("FindByNum = " + todoListDTO.toString());
-
-        if (todoListDTO.getDone() == 0) {
-            todoListDTO.setDone(1);
-        } else {
-            todoListDTO.setDone(0);
-        }
-
-        todoListRepository.changebox(todoListDTO);
-    }
 
     // ################# edit 변경 Service ################# //
     public void edit(Long num, String todo) {
-        TodoListDTO todoListDTO = todoListRepository.FindByNum(num);
-        System.out.println("FindByNum = " + todoListDTO.toString());
+        Map<String, String> map = new HashMap<String, String>();
 
-        todoListDTO.setTodo(todo);
+        map.put("num", Long.toString(num));
+        map.put("todo", todo);
 
-        todoListRepository.update(todoListDTO);
+        todoListRepository.update(map);
     }
 
     // ################# clear (다중 삭제) Service ################# //
@@ -82,14 +68,17 @@ public class TodoListService {
     // ################# 체크박스 선택 Service ################# //
     public void updateStatus(TodoListDTO todoListDTO) {
         if (todoListDTO.getDone() == 1) {
-            System.out.println("체크박스 service 1부분들어옴");
             todoListRepository.delete_date(todoListDTO);
         } else {
-            System.out.println("체크박스 service 0부분들어옴");
             todoListRepository.update_date(todoListDTO);
         }
     }
 
+    // #################################################### //
+    // ################# 기간 입력 Service ################# //
+    // ### 시작 날짜가 입력으로 들어오지 않으면 1900-01-01 로 설정
+    // ### 종료 날짜가 입력으로 들어오지 않으면 금일 날짜로 설정
+    // #################################################### //
     public Object[] todolist_period(String id, String start_date, String end_date) {
 
         Map<String, String> map = new HashMap<String, String>();
@@ -103,7 +92,6 @@ public class TodoListService {
             Date now = new Date();
             String nowTime = simpleDateFormat.format(now);
 
-            System.out.println(nowTime);
             end_date = nowTime;
         }
 
@@ -111,32 +99,29 @@ public class TodoListService {
         map.put("start_date", start_date);
         map.put("end_date", end_date);
 
-        System.out.println("최종 start_date = " + start_date + " end_date = " + end_date);
         return new Object[] {todoListRepository.todolist_period(map), start_date, end_date};
     }
 
-
+    // ########################################################### //
+    // ################# 이미지 파일 업로드 Service ################# //
+    // ### target 경로로 이미지 저장
+    // ### 저장되는 이미지 파일명은 db 내 StoredFileName 으로 저장
+    // ########################################################### //
     public void insert_img(TodoListDTO todoListDTO, UploadDTO uploadDTO, MultipartFile file) {
 
         todoListRepository.insert_img(todoListDTO);
         uploadDTO.setNum(todoListDTO.getNum());
 
         todoListRepository.insert_img(uploadDTO);
-        System.out.println("uploadDTO storedFileName = " + uploadDTO.getStoredFileName());
-
 
         File target = new File(uploadDTO.getUploadPath(), uploadDTO.getStoredFileName() + "." + uploadDTO.getContentType().split("/")[1]);
-        System.out.println("target = " + target);
-
         todoListDTO.setImg_fileName(uploadDTO.getStoredFileName() + "." + uploadDTO.getContentType().split("/")[1]);
 
         todoListRepository.update_img_fileName(todoListDTO);
 
         if ( ! new File(uploadDTO.getUploadPath()).exists()) {
-            System.out.println("폴더가 없습니다. 새롭게 생성합니다.");
             new File(uploadDTO.getUploadPath()).mkdirs();
         }
-
         //파일 복사
         try {
             FileCopyUtils.copy(file.getBytes(), target);

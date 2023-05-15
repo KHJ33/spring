@@ -11,7 +11,7 @@
 <link href="<c:url value="/resources/css/index_page.css" />" rel="stylesheet">
 <html>
 <head>
-    <title>Title</title>
+    <title>login</title>
 </head>
 <body>
 

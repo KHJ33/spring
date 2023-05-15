@@ -20,8 +20,8 @@
         delete from user_todolist where num=#{num}
     </delete>
 
-    <update id="update" parameterType="todolist">
-        update user_todolist set todo=#{Todo} where num=#{Num}
+    <update id="update" parameterType="Map">
+        update user_todolist set todo=#{todo} where num=#{num}
     </update>
 
     <insert id="insert" parameterType="todolist">

@@ -15,7 +15,9 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     private final UserService userService;
 
+    // ########################################### //
     // ################# 회원가입 ################# //
+    // ########################################## //
 
     // 기본 /user/save controller
     @GetMapping("/save")
@@ -30,11 +32,13 @@ public class LoginController {
         if (saveResult > 0) {
             return "index";
         } else {
-            return "save";
+            return "error";
         }
     }
 
+    // ########################################## //
     // ################# 로그인 ################# //
+    // ######################################## //
 
     @GetMapping("/login")
     public String loginForm() {
@@ -52,7 +56,7 @@ public class LoginController {
             // MainController 이동
             return "redirect:/main/";
         } else {
-            return "login";
+            return "error";
         }
     }
 }

@@ -17,4 +17,5 @@ public class TodoListDTO {
     private int Done;
     private int ExistsImg;
     private String img_fileName;
+
 }
